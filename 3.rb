@@ -2,18 +2,7 @@ input = DATA.read
 valid_operations_pattern = /mul\((?<a>\d+),(?<b>\d+)\)/
 
 def clean_input!(input)
-  enabled = true
-  parts = input.split(/(don't\(\)|do\(\))/)
-  parts.each_with_object('') do |part, acc|
-    case part
-    when "don't()"
-      enabled = false
-    when 'do()'
-      enabled = true
-    else
-      acc << part if enabled
-    end
-  end
+  input.gsub(/don't\(\).*?(?=do\(\)|don't\(\)|\z)/m, '')
 end
 
 # Part 1
